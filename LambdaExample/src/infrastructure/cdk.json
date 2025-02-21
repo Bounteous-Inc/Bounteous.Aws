@@ -1,4 +1,0 @@
-{
-  "app": "npx ts-node bin/nutrien.dxp.backoffice.infrastructure.js",
-  "requireApproval": "never"
-}
