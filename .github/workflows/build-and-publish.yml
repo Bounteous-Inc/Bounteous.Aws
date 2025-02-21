@@ -8,10 +8,13 @@ on:
 jobs:
   publish:
     if: github.event.pull_request.merged == true
-    uses: xerris/xerris-common-workflows/.github/workflows/build-and-publish-to-nuget.yml@main
+    uses: Bounteous-Inc/bounteous-dotnet-common-workflows/.github/workflows/build-and-publish-to-nuget.yml@main
     with:
-      csproj-path: './src/Xerris.DotNet.Core.Aws/Xerris.DotNet.Core.Aws.csproj'
-      nuget-package-name: 'xerris.dotnet.core.aws'
+      csproj-path: './src/Bounteous.Aws/Bounteous.Aws.csproj'
+      nuget-package-name: 'Bounteous.Aws'
+      dotnet-version: '8.0.x'
+      release-path: 'net8.0'
+      build-configuration: 'Release'
     secrets:
       NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
       NUGET_SOURCE_URI: ${{ secrets.NUGET_SOURCE_URI }}
