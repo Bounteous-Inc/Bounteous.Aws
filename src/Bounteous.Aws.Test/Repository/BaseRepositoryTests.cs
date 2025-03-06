@@ -45,7 +45,7 @@ namespace Bounteous.Aws.Test.Repository
             await subject.DeleteAsync(angelina);
         }
 
-        private bool Matches(Document document, Foo expected)
+        private static bool Matches(Document document, Foo expected)
         {
             Validate.Begin()
                 .IsNotNull(document, "document")
