@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace Bounteous.Aws.Test.Model
 {
     public class Foo
@@ -10,8 +12,13 @@ namespace Bounteous.Aws.Test.Model
             LastName = last;
         }
 
+        [JsonPropertyName("FirstName")]
         public string FirstName { get; set; }
+
+        [JsonPropertyName("LastName")]
         public string LastName { get; set; }
+
+        [JsonPropertyName("Age")]
         public int Age { get; set; }
     }
 }

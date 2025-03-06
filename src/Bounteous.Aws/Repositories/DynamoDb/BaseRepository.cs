@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.Model;
 using Bounteous.Aws.IoC;
 using Bounteous.Core.Extensions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using DynamoTable = Amazon.DynamoDBv2.DocumentModel;
 
 namespace Bounteous.Aws.Repositories.DynamoDb
@@ -24,12 +24,11 @@ namespace Bounteous.Aws.Repositories.DynamoDb
 
     public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
     {
-        private static readonly JsonSerializerSettings DynamoDbJsonSerializationSettings =
-            new JsonSerializerSettings
-            {
-                ContractResolver = new DefaultContractResolver(),
-                NullValueHandling = NullValueHandling.Ignore
-            };
+        private static readonly JsonSerializerOptions DynamoDbJsonSerializationOptions = new JsonSerializerOptions
+        {
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        };
 
         private ITable Table { get; }
         private readonly ILazyProvider<IAmazonDynamoDB> clientProvider;
@@ -105,13 +104,13 @@ namespace Bounteous.Aws.Repositories.DynamoDb
 
         public async Task SaveAsync(T toUpdate)
         {
-            var item = DynamoTable.Document.FromJson(toUpdate.ToJson(DynamoDbJsonSerializationSettings));
+            var item = DynamoTable.Document.FromJson(toUpdate.ToJson(DynamoDbJsonSerializationOptions));
             await Table.PutItemAsync(item);
         }
 
         public async Task DeleteAsync(T toDelete)
         {
-            await Table.DeleteItemAsync(DynamoTable.Document.FromJson(toDelete.ToJson(DynamoDbJsonSerializationSettings)));
+            await Table.DeleteItemAsync(DynamoTable.Document.FromJson(toDelete.ToJson(DynamoDbJsonSerializationOptions)));
         }
 
         public async Task<List<Dictionary<string, AttributeValue>>> QueryAsync(QueryRequest request)
