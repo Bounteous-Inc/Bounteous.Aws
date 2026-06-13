@@ -7,6 +7,7 @@ using Bounteous.Aws.Test.Model;
 using Bounteous.Core.Validations;
 using Moq;
 using Xunit;
+using ITable = Bounteous.Aws.Repositories.DynamoDb.ITable;
 
 namespace Bounteous.Aws.Test.Repository
 {
