@@ -14,8 +14,8 @@ jobs:
     with:
       csproj-path: './src/Bounteous.Aws/Bounteous.Aws.csproj'
       nuget-package-name: 'Bounteous.Aws'
-      dotnet-version: '8.0.x'
-      release-path: 'net8.0'
+      dotnet-version: '10.0.x'
+      release-path: 'net10.0'
       build-configuration: 'Release'
 
   # Publish must run in THIS repo's own workflow (not the reusable one).
