@@ -8,7 +8,7 @@ namespace Bounteous.Aws.Repositories.DynamoDb
     public class TableProxy : ITable
     {
         private readonly ILazyProvider<IAmazonDynamoDB> client;
-        private Table table;
+        private Amazon.DynamoDBv2.DocumentModel.ITable table;
 
         private TableProxy(ILazyProvider<IAmazonDynamoDB> client, string tableName)
         {
@@ -16,9 +16,9 @@ namespace Bounteous.Aws.Repositories.DynamoDb
             TableName = tableName;
         }
 
-        private Table Table
+        private Amazon.DynamoDBv2.DocumentModel.ITable Table
         {
-            get { return table ??= Table.LoadTable(client.Create(), TableName); }
+            get { return table ??= Amazon.DynamoDBv2.DocumentModel.Table.LoadTable(client.Create(), TableName); }
         }
 
         public async Task PutItemAsync(Document toAdd)

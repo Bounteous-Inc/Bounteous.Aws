@@ -27,7 +27,7 @@ namespace Bounteous.Aws.DynamoDb
 
         public static bool Bool(this IReadOnlyDictionary<string, AttributeValue> value, string key, bool withDefault = false)
         {
-            return value.ContainsKey(key) ? value[key].BOOL : withDefault;
+            return value.ContainsKey(key) ? value[key].BOOL.GetValueOrDefault(withDefault) : withDefault;
         }
 
         public static T EnumStr<T>(this IReadOnlyDictionary<string, AttributeValue> value, string key) where T : struct, IConvertible

@@ -51,7 +51,7 @@ namespace Bounteous.Aws.Sqs
             
             if (!successful)
             {
-                var failureText = response.Failed.Select(f => $"Unable to send '{batchRequestEntries[int.Parse(f.Id)].MessageBody}' because {f.Message}");
+                var failureText = (response.Failed ?? Enumerable.Empty<BatchResultErrorEntry>()).Select(f => $"Unable to send '{batchRequestEntries[int.Parse(f.Id)].MessageBody}' because {f.Message}");
                 Log.Error("Sqs batch send failure: {failureText}", string.Join(Environment.NewLine, failureText));
             }
 
