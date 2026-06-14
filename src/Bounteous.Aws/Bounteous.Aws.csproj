@@ -4,6 +4,7 @@
         <TargetFramework>net10.0</TargetFramework>
         <LangVersion>8</LangVersion>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
 
     <ItemGroup>
